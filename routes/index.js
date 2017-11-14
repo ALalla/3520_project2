@@ -13,6 +13,6 @@ var controllerMongoCollection = require('../controllers/database'); //load contr
 //**************************************************************************
 //***** mongodb get all of the Routes in Routes collection w
 //      and Render information iwith an ejs view
-router.get('/getAllRoutes', controllerMongoCollection.getAllRoutes);
+router.get('/getAllOrders', controllerMongoCollection.getAllOrders);
 
 
