@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>mLab MongoDB test</title>
+    <link rel='stylesheet' href='/stylesheets/style.css' />
+</head>
+<body>
+<div class="container">
+    <h2>Database Results getting Orders </h2>
+    <ul>
+        <% results.forEach(function(r) { %>
+        <li><%= r.CUSTOMER_ID %> & <%= r.BILLING_ID %></li>
+        <br/><br/>
+        <% }); %>
+    </ul>
+</div>
+
+</body>
+</html>
