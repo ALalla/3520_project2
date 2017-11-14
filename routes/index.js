@@ -3,32 +3,16 @@ var router = express.Router();
 module.exports = router;
 
 //LOAD the various controllers
-//var controllerMain = require('../controllers/database');   //this will load the main controller file
+//var controllerMain = require('../controllers/main');   //this will load the main controller file
 var controllerMongoCollection = require('../controllers/database'); //load controller code dealing with database mongodb and Routes collection
 
-//########################################
-//to process data sent in on request need body-parser module
-//var bodyParser = require('body-parser');
-//var path = require ('path'); //to work with separtors on any OS including Windows
-//var querystring = require('querystring'); //for use in GET Query string of form URI/path?name=value
-
-//router.use(bodyParser.json()); // for parsing application/json
-//router.use(bodyParser.urlencoded({ extended: true })); // for parsing application/x-www-form-urlencode
-//#########################################
-
-// GET with  URI  /read/Lynne   which means name=Lynne
-router.get('/read/:name', function(req, res, next) {
-    //expecting data variable called name --retrieve value using body-parser
-    //var body = JSON.stringify(req.body);  //if wanted entire body as JSON
-    //var params = JSON.stringify(req.params);//if wanted parameters
-    //var value_name = req.params.name;  //retrieve the data associated with name
-    //res.send("hello " + value_name);
+//MAY HAVE OTHER CODE in index.js
 
 
-    //CODE to route /getAllRoutes to appropriate  Controller function
+//CODE to route /getAllRoutes to appropriate  Controller function
 //**************************************************************************
 //***** mongodb get all of the Routes in Routes collection w
 //      and Render information iwith an ejs view
-    router.get('/getAllOrders', controllerMongoCollection.getAllOrders);
-})
+router.get('/getAllRoutes', controllerMongoCollection.getAllRoutes);
+
 
