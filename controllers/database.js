@@ -1,5 +1,5 @@
 var mongodb = require('mongodb');
-var mongoDBURI = process.env.MONGODB_URI || 'mongodb://<heroku_prmppm53>:<a11m10a19n95>@ds159235.mlab.com:59235/heroku_prmppm53';
+var mongoDBURI = process.env.MONGODB_URI || 'mongodb://abhisheklalla:1234@ds159235.mlab.com:59235/heroku_prmppm53';
 
 
 /** getAllRoutes controller logic that current does model logic too -connects to Mongo database and
@@ -20,7 +20,7 @@ module.exports.getAllOrders =  function (request, response) {
 
         //FIRST showing you one way of making request for ALL routes and cycle through with a forEach loop on returned Cursor
         //   this request and loop  is to display content in the  console log
-        var c = Routes.find({});
+        var c = Orders.find({});
 
         c.forEach(
             function(myDoc) {
@@ -31,7 +31,7 @@ module.exports.getAllOrders =  function (request, response) {
 
         //SECOND -show another way to make request for ALL Routes  and simply collect the  documents as an
         //   array called docs that you  forward to the  getAllRoutes.ejs view for use there
-        Routes.find().toArray(function (err, docs) {
+        Orders.find().toArray(function (err, docs) {
             if(err) throw err;
 
             response.render('getAllOrders', {results: docs});
