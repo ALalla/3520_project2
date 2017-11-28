@@ -1,6 +1,6 @@
 var express = require('express');
 var router = express.Router();
-//module.exports = router;
+module.exports = router;
 
 //LOAD the various controllers
 //var controllerMain = require('../controllers/main');   //this will load the main controller file
