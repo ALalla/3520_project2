@@ -59,7 +59,7 @@ var mongodb = require('mongodb');
 var mongoDBURI = process.env.MONGODB_URI || 'mongodb://abhisheklalla:1234@ds159235.mlab.com:59235/heroku_prmppm53';
 
 
-module.exports.storeData =  function (request, response) {
+module.exports.storeData =  function(req, res, next) {
     var firstname = req.body.firstname;
     var lastname = req.body.lastname;
     var street = req.body.addressB;
