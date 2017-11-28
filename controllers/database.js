@@ -88,9 +88,14 @@ module.exports.storeData =  function (request, response) {
        db.collection("CUSTOMERS").insertOne(customersobj, function(err, res) {
            if (err) throw err;
            console.log("Number of documents inserted: " + res.insertedCount);
-           db.close();
 
            response.render('storeData.ejs');
+
+           db.close(function (err) {
+               if(err) throw err;
+           });
+
+
 
        });
     });
