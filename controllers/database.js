@@ -59,9 +59,10 @@ var mongoDBURI = process.env.MONGODB_URI || 'mongodb://abhisheklalla:1234@ds1592
 
 
 
-module.exports.storeData =  function(request, response) {
+module.exports.storeData =  function(req, res, next) {
 
     var firstname = req.body.firstname;
+    console.log(firstname);
     var lastname = req.body.lastname;
     var street = req.body.addressB;
     var city = req.body.cityB;
@@ -99,7 +100,7 @@ module.exports.storeData =  function(request, response) {
        db.collection("CUSTOMERS").insertOne(customersobj, function(err, res) {
            if (err) throw err;})
 
-           db.collection("BILLING").insertOne(billingobj, function(err, res) {
+            db.collection("BILLING").insertOne(billingobj, function(err, res) {
                 if (err) throw err;})
 
                db.collection("SHIPPING").insertOne(shippingobj, function(err, res) {
