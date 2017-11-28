@@ -10,7 +10,7 @@ var controllerMongoCollection = require('../controllers/database'); //load contr
 
 
 //CODE to route /getAllRoutes to appropriate  Controller function
-//**************************************************************************
+//***********************************************
 //***** mongodb get all of the Routes in Routes collection w
 //      and Render information iwith an ejs view
 //app.post("/storeData', controllerMongoCollection.getAllOrders);
