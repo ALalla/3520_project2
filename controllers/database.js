@@ -59,10 +59,9 @@ var mongoDBURI = process.env.MONGODB_URI || 'mongodb://abhisheklalla:1234@ds1592
 
 
 
-module.exports.storeData =  function(req, res, next) {
+module.exports.storeData =  function(request, response) {
 
     var firstname = req.body.firstname;
-    console.log(firstname);
     var lastname = req.body.lastname;
     var street = req.body.addressB;
     var city = req.body.cityB;
@@ -89,7 +88,6 @@ module.exports.storeData =  function(req, res, next) {
 
        db.collection("CUSTOMERS").insertOne(customersobj, function(err, res) {
            if (err) throw err;
-           console.log("Number of documents inserted: " + res.insertedCount);
 
            response.render('storeData.ejs');
 
