@@ -2,9 +2,7 @@ var express = require('express');
 var router = express.Router();
 module.exports = router;
 
-//LOAD the various controllers
-//var controllerMain = require('../controllers/main');   //this will load the main controller file
-var controllerMongoCollection = require('../controllers/database'); //load controller code dealing with database mongodb and Routes collection
+//var controllerMongoCollection = require('../controllers/database'); //load controller code dealing with database mongodb and Routes collection
 
 //MAY HAVE OTHER CODE in index.js
 
@@ -21,4 +19,10 @@ router.use(bodyParser.urlencoded({ extended: true })); // for parsing applicatio
 //      and Render information iwith an ejs view
 //app.post("/storeData', controllerMongoCollection.getAllOrders);
 
-router.post('/storeData', controllerMongoCollection.storeData);
+//router.post('/storeData', controllerMongoCollection.storeData);
+
+router.post('/storeData', function(req, res, next) {
+    //expecting data variable called name --retrieve value using body-parser
+    var firstname = req.body.firstname;  //retrieve the data associated with name
+    res.send("hello " + firstname);
+});

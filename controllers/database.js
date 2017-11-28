@@ -54,7 +54,7 @@
 };//end function
 
 */
-var mongodb = require('mongodb');
+/*var mongodb = require('mongodb');
 var mongoDBURI = process.env.MONGODB_URI || 'mongodb://abhisheklalla:1234@ds159235.mlab.com:59235/heroku_prmppm53';
 
 
@@ -96,3 +96,4 @@ module.exports.storeData =  function(req, res, next) {
 
     };
 
+*/
