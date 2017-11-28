@@ -24,5 +24,5 @@ router.use(bodyParser.urlencoded({ extended: true })); // for parsing applicatio
 router.post('/storeData', function(req, res, next) {
     var firstname = req.body.firstname;  //retrieve the data associated with name
     res.send("hello " + firstname);
-    console.log('hello');
+    //console.log('hello');
 });
