@@ -54,16 +54,15 @@
 };//end function
 
 */
-
+var mongodb = require('mongodb');
+var mongoDBURI = process.env.MONGODB_URI || 'mongodb://abhisheklalla:1234@ds159235.mlab.com:59235/heroku_prmppm53';
 
 
 
 module.exports.storeData =  function(req, res, next) {
 
-    var mongodb = require('mongodb');
-    var mongoDBURI = process.env.MONGODB_URI || 'mongodb://abhisheklalla:1234@ds159235.mlab.com:59235/heroku_prmppm53';
-
     var firstname = req.body.firstname;
+    console.log(firstname);
     var lastname = req.body.lastname;
     var street = req.body.addressB;
     var city = req.body.cityB;
