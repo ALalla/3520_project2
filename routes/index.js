@@ -25,4 +25,5 @@ router.post('/storeData', function(req, res, next) {
     //expecting data variable called name --retrieve value using body-parser
     var firstname = req.body.firstname;  //retrieve the data associated with name
     res.send("hello " + firstname);
+    console.log(firstname);
 });
