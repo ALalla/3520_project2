@@ -83,33 +83,6 @@ module.exports.storeData =  function(req, res, next) {
     mongodb.MongoClient.connect(mongoDBURI, function(err, db) {
         if (err) throw err;
 
-       var customersobj = [
-           { FIRSTNAME: firstname, LASTNAME: lastname, STREET: street,  CITY: city, STATE: state, ZIP: zip, EMAIL: email}
-       ];
-
-      var billingobj = [{
-           CUSTOMER_ID: '1', CREDITCARDTYPE: cardtype, CREDITCARDNUM: cardnumber, CREDITCARDEXP: cardexp, CREDITCARDSECURITYNUM: '1'}
-    ];
-
-      var shippingobj = [{CUSTOMER_ID: '1', SHIPPING_STREET: shippingstreet, SHIPPING_CITY: shippingcity, SHIPPING_STATE: shippingstate, SHIPPING_ZIP: shippingzip
-
-    }];
-
-      var ordersobj = [{CUSTOMER_ID: '1', BILLING_ID: '1', SHIPPING_ID: '1', DATE: '1', PRODUCT_VECTOR: '1', ORDER_TOTAL: '1' }];
-
-       db.collection("CUSTOMERS").insertOne(customersobj, function(err, res) {
-           if (err) throw err;})
-
-            db.collection("BILLING").insertOne(billingobj, function(err, res) {
-                if (err) throw err;})
-
-               db.collection("SHIPPING").insertOne(shippingobj, function(err, res) {
-                   if (err) throw err;})
-
-                   db.collection("ORDERS").insertOne(ordersobj, function(err, res) {
-                       if (err) throw err;})
-
-
            response.render('storeData.ejs');
 
            db.close(function (err) {
@@ -119,7 +92,6 @@ module.exports.storeData =  function(req, res, next) {
 
 
        });
-    });
 
 
     };
