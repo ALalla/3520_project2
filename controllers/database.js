@@ -60,27 +60,37 @@ var mongoDBURI = process.env.MONGODB_URI || 'mongodb://abhisheklalla:1234@ds1592
 
 
 module.exports.storeData =  function (request, response) {
-    var firstname = req.body.FIRSTNAME;
-    var lastname = req.body.LASTNAME;
-    var street = req.body.STREET;
-    var city = req.body.CITY;
-    var state = req.body.STATE;
-    var zip = req.body.ZIP;
-    var email = req.body.EMAIL;
+    var firstname = req.body.firstname;
+    var lastname = req.body.lastname;
+    var street = req.body.addressB;
+    var city = req.body.cityB;
+    var state = req.body.stateB;
+    var zip = req.body.zip;
+    var email = req.body.email;
 
-    var creditcardtype = req.body.CREDITCARDTYPE;
-    var creditcardnum = req.body.CREDITCARDNUM;
-    var creditcardexp = req.body.CREDITCARDEXP;
+    var cardtype = req.body.cardtype;
+    var cardnumber = req.body.cardnumber;
+    var cardexp = req.body.cardexp;
 
 
-    var shipping_street = req.body.SHIPPING_STREET;
-    var shipping_city = req.body.SHIPPING_CITY;
-    var shipping_state = req.body.SHIPPING_STATE;
-    var shipping_zip = req.body.SHIPPING_ZIP
+    var shippingstreet = req.body.addressB;
+    var shippingcity = req.body.cityB;
+    var shippingstate = req.body.stateB;
+    var shippingzip = req.body.zip;
 
     mongodb.MongoClient.connect(mongoDBURI, function(err, db) {
         if (err) throw err;
 
+       var customersobj = [
+           { FIRSTNAME: firstname, LASTNAME: lastname, STREET: street,  CITY: city, STATE: state, ZIP: zip, EMAIL: email}
+       ];
+
+       db.collection("CUSTOMERS").insertOne(customersobj, function(err, res) {
+           if (err) throw err;
+           console.log("Number of documents inserted: " + res.insertedCount);
+           db.close();
+       });
+    });
 
     };
 
