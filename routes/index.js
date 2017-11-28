@@ -15,4 +15,4 @@ var controllerMongoCollection = require('../controllers/database'); //load contr
 //      and Render information iwith an ejs view
 //app.post("/storeData', controllerMongoCollection.getAllOrders);
 
-app.post("/storeData", ControllerDatabase.storeData);
+app.post("/storeData", controllerMongoCollection.storeData);
