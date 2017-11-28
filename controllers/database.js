@@ -92,7 +92,7 @@ module.exports.storeData =  function (request, response) {
        });
     });
 
-    response.render('storeData');
+    response.render('storeData.ejs');
 
     };
 
