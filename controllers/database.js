@@ -89,10 +89,12 @@ module.exports.storeData =  function (request, response) {
            if (err) throw err;
            console.log("Number of documents inserted: " + res.insertedCount);
            db.close();
+
+           response.render('storeData.ejs');
+
        });
     });
 
-    response.render('storeData.ejs');
 
     };
 
