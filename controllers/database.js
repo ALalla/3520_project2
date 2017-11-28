@@ -1,5 +1,5 @@
-var mongodb = require('mongodb');
-var mongoDBURI = process.env.MONGODB_URI || 'mongodb://abhisheklalla:1234@ds159235.mlab.com:59235/heroku_prmppm53';
+//var mongodb = require('mongodb');
+//var mongoDBURI = process.env.MONGODB_URI || 'mongodb://abhisheklalla:1234@ds159235.mlab.com:59235/heroku_prmppm53';
 
 
 /** getAllRoutes controller logic that current does model logic too -connects to Mongo database and
@@ -9,7 +9,7 @@ var mongoDBURI = process.env.MONGODB_URI || 'mongodb://abhisheklalla:1234@ds1592
  * @param response
  *
  */
-module.exports.getAllOrders =  function (request, response) {
+/*module.exports.getAllOrders =  function (request, response) {
 
     mongodb.MongoClient.connect(mongoDBURI, function(err, db) {
         if(err) throw err;
@@ -52,3 +52,35 @@ module.exports.getAllOrders =  function (request, response) {
         });
     });//end of connect
 };//end function
+
+*/
+
+var mongodb = require('mongodb');
+var mongoDBURI = process.env.MONGODB_URI || 'mongodb://abhisheklalla:1234@ds159235.mlab.com:59235/heroku_prmppm53';
+
+
+module.exports.storeData =  function (request, response) {
+    var firstname = req.body.FIRSTNAME;
+    var lastname = req.body.LASTNAME;
+    var street = req.body.STREET;
+    var city = req.body.CITY;
+    var state = req.body.STATE;
+    var zip = req.body.ZIP;
+    var email = req.body.EMAIL;
+
+    var creditcardtype = req.body.CREDITCARDTYPE;
+    var creditcardnum = req.body.CREDITCARDNUM;
+    var creditcardexp = req.body.CREDITCARDEXP;
+
+
+    var shipping_street = req.body.SHIPPING_STREET;
+    var shipping_city = req.body.SHIPPING_CITY;
+    var shipping_state = req.body.SHIPPING_STATE;
+    var shipping_zip = req.body.SHIPPING_ZIP
+
+    mongodb.MongoClient.connect(mongoDBURI, function(err, db) {
+        if (err) throw err;
+
+
+    };
+
