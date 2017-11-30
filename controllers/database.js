@@ -11,7 +11,7 @@ router.use(bodyParser.urlencoded({extended: true})); // for parsing application/
 
 module.exports.storeData = function (req, res, next) {
     // setting POST variables
-    var firstname = req.body.FIRSTNAME;
+    /*var firstname = req.body.FIRSTNAME;
     var lastname = req.body.LASTNAME;
     var street = req.body.STREET;
     var city = req.body.CITY;
@@ -27,7 +27,7 @@ module.exports.storeData = function (req, res, next) {
     var shipping_street = req.body.SHIPPING_STREET;
     var shipping_city = req.body.SHIPPING_CITY;
     var shipping_state = req.body.SHIPPING_STATE;
-    var shipping_zip = req.body.SHIPPING_ZIP;
+    var shipping_zip = req.body.SHIPPING_ZIP;*/
 
     var order = req.body.ORDER;
 
@@ -45,13 +45,13 @@ module.exports.storeData = function (req, res, next) {
         //set POST variables to index
         var customerdata = {
             _id: customerID,
-            FIRSTNAME: firstname,
-            LASTNAME: lastname,
-            STREET: street,
-            CITY: city,
-            STATE: state,
-            ZIP: zip,
-            EMAIL: email
+            FIRSTNAME: req.body.FIRSTNAME,
+            LASTNAME: req.body.LASTNAME,
+            STREET: req.body.STREET,
+            CITY: req.body.CITY,
+            STATE: req.body.STATE,
+            ZIP: req.body.ZIP,
+            EMAIL: req.body.EMAIL
         };
         //insert Document
         CUSTOMERS.insertOne(customerdata, function (err, result) {
@@ -62,10 +62,10 @@ module.exports.storeData = function (req, res, next) {
         //set POST variables to index
         var billingdata = {
             _id: billingID,
-            CREDITCARDNAME: creditcardname,
-            CREDITCARDTYPE: creditcardtype,
-            CREDITCARDNUM: creditcardnum,
-            CREDITCARDEXP: creditcardexp
+            CREDITCARDNAME: req.body.CREDITCARDNAME,
+            CREDITCARDTYPE: req.body.CREDITCARDTYPE,
+            CREDITCARDNUM: req.body.CREDITCARDNUM,
+            CREDITCARDEXP: req.body.CREDITCARDEXP
         };
         //insert Document
         BILLING.insertOne(billingdata, function (err, result) {
@@ -76,10 +76,10 @@ module.exports.storeData = function (req, res, next) {
         //set POST variables to index
         var shippingdata = {
             _id: shippingID,
-            SHIPPING_STREET: shipping_street,
-            SHIPPING_CITY: shipping_city,
-            SHIPPING_STATE: shipping_state,
-            SHIPPING_ZIP: shipping_zip
+            SHIPPING_STREET: req.body.SHIPPING_STREET,
+            SHIPPING_CITY: req.body.CITY,
+            SHIPPING_STATE: req.body.SHIPPING_STATE,
+            SHIPPING_ZIP: req.body.SHIPPING_ZIP
         };
         //insert Document
         SHIPPING.insertOne(shippingdata, function (err, result) {
