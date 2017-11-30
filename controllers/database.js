@@ -1,99 +1,111 @@
-//var mongodb = require('mongodb');
-//var mongoDBURI = process.env.MONGODB_URI || 'mongodb://abhisheklalla:1234@ds159235.mlab.com:59235/heroku_prmppm53';
-
-
-/** getAllRoutes controller logic that current does model logic too -connects to Mongo database and
- * queries the Routes collection to retrieve all the routes and build the output usig the
- * ejs template mongodb.ejs found in views directory
- * @param request
- * @param response
- *
- */
-/*module.exports.getAllOrders =  function (request, response) {
-
-    mongodb.MongoClient.connect(mongoDBURI, function(err, db) {
-        if(err) throw err;
-
-        //get collection of routes
-        var Orders = db.collection('Orders');
-
-
-        //FIRST showing you one way of making request for ALL routes and cycle through with a forEach loop on returned Cursor
-        //   this request and loop  is to display content in the  console log
-        var c = Orders.find({});
-
-        c.forEach(
-            function(myDoc) {
-                console.log( "name: " + myDoc.name );  //just  loging the output to the console
-            }
-        );
-
-
-        //SECOND -show another way to make request for ALL Routes  and simply collect the  documents as an
-        //   array called docs that you  forward to the  getAllRoutes.ejs view for use there
-        Orders.find().toArray(function (err, docs) {
-            if(err) throw err;
-
-            response.render('getAllOrders', {results: docs});
-
-        });
-
-
-        //Showing in comments here some alternative read (find) requests
-        //this gets Routes where frequency>=10 and sorts by name
-        // Routes.find({ "frequency": { "$gte": 10 } }).sort({ name: 1 }).toArray(function (err, docs) {
-        // this sorts all the Routes by name
-        //  Routes.find().sort({ name: 1 }).toArray(fu namenction (err, docs) {
-
-
-        //close connection when your app is terminating.
-        db.close(function (err) {
-            if(err) throw err;
-        });
-    });//end of connect
-};//end function
-
-*/
-/*var mongodb = require('mongodb');
+var express = require('express');
+var router = express.Router();
+var mongodb = require('mongodb');
 var mongoDBURI = process.env.MONGODB_URI || 'mongodb://abhisheklalla:1234@ds159235.mlab.com:59235/heroku_prmppm53';
+//to process data sent in on request need body-parser module
+var bodyParser = require('body-parser');
+var path = require('path'); //to work with separtors on any OS including Windows
+var querystring = require('querystring'); //for use in GET Query string of form URI/path?name=value
+router.use(bodyParser.json()); // for parsing application/json
+router.use(bodyParser.urlencoded({extended: true})); // for parsing application/x-www-form-urlencode
+
+module.exports.storeData = function (req, res, next) {
+    // setting POST variables
+    var firstname = req.body.FIRSTNAME;
+    var lastname = req.body.LASTNAME;
+    var street = req.body.STREET;
+    var city = req.body.CITY;
+    var state = req.body.STATE;
+    var zip = req.body.ZIP;
+    var email = req.body.EMAIL;
+
+    var creditcardname = req.body.CREDITCARDNAME;
+    var creditcardtype = req.body.CREDITCARDTYPE;
+    var creditcardnum = req.body.CREDITCARDNUM;
+    var creditcardexp = req.body.CREDITCARDEXP;
+
+    var shipping_street = req.body.SHIPPING_STREET;
+    var shipping_city = req.body.SHIPPING_CITY;
+    var shipping_state = req.body.SHIPPING_STATE;
+    var shipping_zip = req.body.SHIPPING_ZIP;
+
+    var order = req.body.ORDER;
 
 
-
-module.exports.storeData =  function(req, res, next) {
-
-    var firstname = req.body.firstname;
-    console.log(firstname);
-    var lastname = req.body.lastname;
-    var street = req.body.addressB;
-    var city = req.body.cityB;
-    var state = req.body.stateB;
-    var zip = req.body.zip;
-    var email = req.body.email;
-
-    var cardtype = req.body.cardtype;
-    var cardnumber = req.body.cardnumber;
-    var cardexp = req.body.cardexp;
-
-
-    var shippingstreet = req.body.addressB;
-    var shippingcity = req.body.cityB;
-    var shippingstate = req.body.stateB;
-    var shippingzip = req.body.zip;
-
-    mongodb.MongoClient.connect(mongoDBURI, function(err, db) {
+    //connect to MONGODB
+    mongodb.MongoClient.connect(mongoDBURI, function (err, db) {
+        //console.log(mongodb.MongoClient.connect);
         if (err) throw err;
+        //CUSTOM IDS
+        var customerID = Math.floor((Math.random() * 1000000000000) + 1);
+        var billingID = Math.floor((Math.random() * 1000000000000) + 1);
+        var shippingID = Math.floor((Math.random() * 1000000000000) + 1);
+        //customer collection operation
+        var CUSTOMERS = db.collection('CUSTOMERS');
+        //set POST variables to index
+        var customerdata = {
+            _id: customerID,
+            FIRSTNAME: firstname,
+            LASTNAME: lastname,
+            STREET: street,
+            CITY: city,
+            STATE: state,
+            ZIP: zip,
+            EMAIL: email
+        };
+        //insert Document
+        CUSTOMERS.insertOne(customerdata, function (err, result) {
+            if (err) throw err;
+        });
+        //billing collection operation
+        var BILLING = db.collection('BILLING');
+        //set POST variables to index
+        var billingdata = {
+            _id: billingID,
+            CREDITCARDNAME: creditcardname,
+            CREDITCARDTYPE: creditcardtype,
+            CREDITCARDNUM: creditcardnum,
+            CREDITCARDEXP: creditcardexp
+        };
+        //insert Document
+        BILLING.insertOne(billingdata, function (err, result) {
+            if (err) throw err;
+        });
+        //shipping collection operation
+        var SHIPPING = db.collection('SHIPPING');
+        //set POST variables to index
+        var shippingdata = {
+            _id: shippingID,
+            SHIPPING_STREET: shipping_street,
+            SHIPPING_CITY: shipping_city,
+            SHIPPING_STATE: shipping_state,
+            SHIPPING_ZIP: shipping_zip
+        };
+        //insert Document
+        SHIPPING.insertOne(shippingdata, function (err, result) {
+            if (err) throw err;
 
-           response.render('storeData.ejs');
+        });
+        //orders collection operation
+        var ORDERS = db.collection('ORDERS');
+        //set POST variables to index
+        var order = {
+            BILLING_ID: billingID,
+            CUSTOMER_ID: customerID,
+            SHIPPING_ID: shippingID,
+            date: new Date(),
 
-           db.close(function (err) {
-               if(err) throw err;
-           });
+        };
+        //insert document
+        ORDERS.insertOne(order, function (err, result) {
+            if (err) throw err;
 
+        });
 
+        //close
+        db.close();
+        //show successful
+        res.render('orders');
 
-       });
-
-
-    };
-
-*/
+    });
+};
